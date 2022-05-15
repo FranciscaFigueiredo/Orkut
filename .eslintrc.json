@@ -1,0 +1,78 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "plugin:react/jsx-runtime",
+        "airbnb"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "jsxPragma": null, // for @typescript/eslint-parser
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "import/prefer-default-export": "off",
+        "import/extensions": [
+            "error",
+            {
+                "js": "ignorePackages",
+                "tsx": "ignorePackages"
+            }
+        ],
+        "indent": [
+            "error",
+            4
+        ],
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": true
+            }
+        ]
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        }
+    },
+    "react/react-in-jsx-scope": 0,
+    "react/jsx-uses-react": 0,
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": [
+        "error", 
+        {"devDependencies": [
+            "**/*.test.js",
+            "**/*.spec.js"
+            ]
+        }
+    ],
+    "react/jsx-filename-extension": [
+        1, 
+        {
+            "extensions": [
+                ".js",
+                ".jsx",
+                ".ts",
+                ".tsx"
+            ]
+        }
+    ]
+}
