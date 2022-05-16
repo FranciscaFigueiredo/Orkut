@@ -21,6 +21,18 @@
         "react",
         "@typescript-eslint"
     ],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        }
+    },
     "rules": {
         "import/prefer-default-export": "off",
         "import/extensions": [
@@ -39,11 +51,22 @@
             {
                 "devDependencies": true
             }
-        ]
-    },
-    "settings": {
-        "import/resolver": {
-            "node": {
+        ],
+        "react/react-in-jsx-scope": 0,
+        "react/jsx-uses-react": 0,
+        "import/prefer-default-export": "off",
+        "import/no-extraneous-dependencies": [
+            "error", 
+            {
+                "devDependencies": [
+                "**/*.test.js",
+                "**/*.spec.js"
+                ]
+            }
+        ],
+        "react/jsx-filename-extension": [
+            1, 
+            {
                 "extensions": [
                     ".js",
                     ".jsx",
@@ -51,28 +74,8 @@
                     ".tsx"
                 ]
             }
-        }
-    },
-    "react/react-in-jsx-scope": 0,
-    "react/jsx-uses-react": 0,
-    "import/prefer-default-export": "off",
-    "import/no-extraneous-dependencies": [
-        "error", 
-        {"devDependencies": [
-            "**/*.test.js",
-            "**/*.spec.js"
-            ]
-        }
-    ],
-    "react/jsx-filename-extension": [
-        1, 
-        {
-            "extensions": [
-                ".js",
-                ".jsx",
-                ".ts",
-                ".tsx"
-            ]
-        }
-    ]
+        ],
+        "react/jsx-indent" : ["error", 4],
+        "react/jsx-indent-props": false
+    }
 }

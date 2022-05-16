@@ -14,7 +14,7 @@ const Form = styled.form`
 `;
 
 const Title = styled.h2`
-    color: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
     font-size: 24px;
     text-align: center;
 
@@ -24,22 +24,22 @@ const Title = styled.h2`
 
 const Input = styled.input`
     width: 80vw;
-    height: 55px;
+    height: 80px;
 
-    color: rgba(63, 97, 215, 1);
+    color: #ffffff;
     font-size: 22px;
 
     margin-bottom: 10px;
     padding: 0 20px;
 
-    background-color: rgba(255, 255, 255, 0);
-    border-radius: 6px;
-    border: 2px solid #3f61d7;
-
+    background-color: #161616;
+    border-radius: 30px;
+    border: 1px solid #ed2590;
+    
     outline: 0;
 
     &::placeholder {
-        color: rgba(63, 97, 215, 0.6);
+        color: rgba(2555, 255, 255, 0.6);
     }
 
     @media (min-width: 611px) {
@@ -48,19 +48,19 @@ const Input = styled.input`
 `;
 
 const ButtonSubmit = styled.button`
-    width: 80vw;
-    height: 55px;
+    width: 50vw;
+    height: 65px;
 
     color: #ffffff;
     font-size: 22px;
     line-height: 33px;
 
-    background-color: #1976d2;
+    background-color: #ed2590;
 
     margin-bottom: 10px;
     padding: 0 20px;
 
-    border-radius: 6px;
+    border-radius: 30px;
 
     @media (min-width: 611px) {
         width: 30vw;
@@ -70,7 +70,8 @@ const ButtonSubmit = styled.button`
 const Redirect = styled.span`
     width: 80vw;
 
-    color: rgba(70, 115, 202, 0.8);
+    color: rgba(237, 37, 144, 0.8);
+    
     font-size: 17px;
     line-height: 20px;
     text-align: center;
@@ -86,39 +87,10 @@ const Redirect = styled.span`
     }
 `;
 
-// const SelectItem = styled(Select)`
-//     width: 80vw;
-
-//     color: rgba(63, 97, 215, 1);
-//     font-size: 22px;
-
-//     margin-bottom: 10px;
-
-//     background-color: rgba(255, 255, 255, 0);
-//     border-radius: 6px;
-//     border: 2px solid #3f61d7;
-
-//     outline: 0;
-
-//     .css-14el2xx-placeholder {
-//         color: rgba(63, 97, 215, 0.6);
-//         text-align: left;
-
-//         padding-left: 7px;
-//     }
-
-
-//     .css-1okebmr-indicatorSeparator {
-//         background-color: rgba(63, 97, 215, 0.6);
-//     }
-
-//     .css-tj5bde-Svg {
-//         color: rgba(63, 97, 215, 0.6);
-//     }
-
-//     @media (min-width: 611px) {
-//         width: 30vw;
-//     }
-// `;
-
-export { Form, Title, Input, ButtonSubmit, Redirect };
+export {
+    Form,
+    Title,
+    Input,
+    ButtonSubmit,
+    Redirect
+};

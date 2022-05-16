@@ -2,7 +2,7 @@ import { createContext, ReactNode, useState } from 'react';
 
 interface IAuthContext {
     token: string | null;
-    signIn: (token: string) => void;
+    login: (token: string) => void;
     signOut: () => void;
 }
 
@@ -12,25 +12,25 @@ interface Props {
     children: React.ReactNode;
 }
 
-const LOCAL_STORAGE_KEY = "orkut-token";
+const LOCAL_STORAGE_KEY = 'orkut-token';
 const persistedToken = localStorage.getItem(LOCAL_STORAGE_KEY);
 
 export function AuthProvider({ children }: Props) {
     const [token, setToken] = useState<string | null>(persistedToken);
-  
-    function signIn(token: string) {
-      setToken(token);
-      localStorage.setItem(LOCAL_STORAGE_KEY, token);
+
+    function login(token: string) {
+        setToken(token);
+        localStorage.setItem(LOCAL_STORAGE_KEY, token);
     }
-  
+
     function signOut() {
-      setToken(null);
-      localStorage.removeItem(LOCAL_STORAGE_KEY);
+        setToken(null);
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
     }
-  
+
     return (
-      <AuthContext.Provider value={{ token, signIn, signOut }}>
-        {children}
-      </AuthContext.Provider>
+        <AuthContext.Provider value={{ token, login, signOut }}>
+            {children}
+        </AuthContext.Provider>
     );
 }
