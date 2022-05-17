@@ -14,34 +14,31 @@ const MenuContainer = styled.div`
 `;
 
 const Search = styled.input`
+    all: unset;
     width: 25vw;
     height: 55px;
 
-    color: rgba(63, 97, 215, 1);
-    font-size: 22px;
+    color: #888888;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: left;
 
-    margin-bottom: 10px;
     padding: 0 20px;
-
-    background-color: rgba(255, 255, 255, 0);
-    border-radius: 6px;
-    border: 2px solid #3f61d7;
 
     outline: 0;
 
     &::placeholder {
-        color: rgba(63, 97, 215, 0.6);
+        color: #888888;
     }
 `;
 
-
 const Line = styled.div`
-    width: 100vw;
+    width: 60vw;
     height: 1px;
 
-    border: 1px solid #3f61d7;
+    border: 1px solid #ed2590;
 
-    margin: 30px 0;
+    margin: 50px auto;
 `;
 
 const Button = styled.button`

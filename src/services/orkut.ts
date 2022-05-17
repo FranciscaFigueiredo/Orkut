@@ -1,30 +1,38 @@
-// import axios from 'axios';
-// import { api } from './apiUrl';
+import axios from 'axios';
+import { api } from './apiUrl';
 
-// function createConfig({ token }) {
-//     return {
-//         headers: {
-//             Authorization: `Bearer ${token}`,
-//         },
-//     };
-// }
+export interface SignUpData {
+    username: string;
+    avatar: string;
+    email: string;
+    password: string;
+}
 
-// function postSignUp(body) {
-//     const promise = axios.post(`${api}/users/registration`, body);
-//     return promise;
-// }
+export type LoginData = Omit<SignUpData, 'username' | 'avatar'>;
 
-// function postLogin(body) {
-//     const promise = axios.post(`${api}/users/authentication`, body);
-//     return promise;
-// }
+function createConfig(token: string) {
+    return {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+}
 
+function postSignUp(body: SignUpData) {
+    const promise = axios.post(`${api}/users/registration`, body);
+    return promise;
+}
 
-// function getTerms({ token }) {
-//     const config = createConfig({ token })
-//     const promise = axios.get(`${api}/terms`, config);
-//     return promise;
-// }
+function postLogin(body: LoginData) {
+    const promise = axios.post(`${api}/users/authentication`, body);
+    return promise;
+}
+
+function getUserProfile(token: string) {
+    const config = createConfig(token);
+    const promise = axios.get(`${api}/users`, config);
+    return promise;
+}
 
 // function getTermsByDisciplineName({ token, discipline }) {
 //     const config = createConfig({ token })
@@ -110,22 +118,8 @@
 //     return promise;
 // }
 
-// export {
-//     postSignUp,
-//     postLogin,
-//     getTerms,
-//     getTermsByDisciplineName,
-//     getTests,
-//     getDisciplinesByTermNumber,
-//     getDisciplines,
-//     getTestsByDisciplineTermNumber,
-//     getTeachers,
-//     getTeachersByName,
-//     getTeachersByDisciplineId,
-//     getCategoriesByTeacherId,
-//     getCategories,
-//     getTestsByTeacherAndCategoryIds,
-//     postNewTestData,
-//     incrementNumberOfViews,
-// };
-export {}
+export {
+    postLogin,
+    postSignUp,
+    getUserProfile,
+};

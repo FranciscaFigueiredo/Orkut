@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const PageContainer = styled.div`
     width: 100vw;
-    min-height: 70vh;
+    min-height: 80vh;
 
     display: flex;
     flex-direction: column;
@@ -12,6 +12,19 @@ const PageContainer = styled.div`
     margin: 0 auto;
 
     position: relative;
+`;
+
+const ContentContainer = styled.div`
+    width: 85vw;
+    /* height: 70vh; */
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    margin: 160px auto;
+
+    /* position: relative; */
 `;
 
 const HeaderContainer = styled.div`
@@ -25,7 +38,6 @@ const HeaderContainer = styled.div`
     background-color: rgba(22, 22, 22, 0.9);
 
     margin: 0 auto;
-    padding: 0 30px;
 
     position: fixed;
     top: 0;
@@ -34,42 +46,8 @@ const HeaderContainer = styled.div`
     z-index: 10;
 `;
 
-const CardsContainer = styled.div`
-    width: 100vw;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    margin: 0 auto;
-
-    position: relative;
-`;
-
-const CardContainer = styled.div`
-    width: 70vw;
-    min-height: 55px;
-
-    text-align: start;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-
-    background-color: #ffffff;
-    border-radius: 4px;
-    border: 1px solid #3f61d7;
-
-    margin: 5px auto;
-
-    position: relative;
-`;
-
 export {
     PageContainer,
+    ContentContainer,
     HeaderContainer,
-    CardsContainer,
-    CardContainer,
 };
