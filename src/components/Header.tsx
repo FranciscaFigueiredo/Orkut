@@ -1,20 +1,37 @@
-import { SetStateAction, useContext } from 'react';
-import { useState } from 'react';
+import { SetStateAction, useContext, useState } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import { HeaderContainer } from '../styles/ContainerStyle';
-import { ArrowMenu, BackgroundCard, BackgroundCardIcon, HeaderContent, HomeIcon, ImageProfile, LogoContainer, LogoImage, Menu, MenuActions, SearchIcon } from '../styles/HeaderStyle';
+import {
+    ArrowMenu,
+    BackgroundCard,
+    BackgroundCardIcon,
+    HeaderContent,
+    HomeIcon,
+    ImageProfile,
+    LogoContainer,
+    LogoImage,
+    Menu,
+    MenuActions,
+    SearchIcon,
+    Username,
+} from '../styles/HeaderStyle';
+
 import { Search } from '../styles/NavigationMenuStyle';
 import logo from '../styles/orkut.png';
+import HeaderMenu from './HeaderMenu';
 
-export function Header() {
-    const avatar = 'https://http.cat/422.jpg';
+interface Props {
+    username: string;
+    avatar: string;
+}
 
+export function Header({ username, avatar }: Props) {
     interface MenuInterface {
         success: boolean;
         message: string;
     }
-    const [menu, setMenu] = useState<SetStateAction<false | MenuInterface>>(false);
-    
+    const [menu, setMenu] = useState<SetStateAction<0 | MenuInterface>>(0);
+
     const { token } = useContext(AuthContext);
 
     return (
@@ -23,32 +40,33 @@ export function Header() {
                 <LogoContainer>
                     <LogoImage src={logo} alt="logo orkut" />
                 </LogoContainer>
-                
+
                 <MenuActions>
-                <BackgroundCardIcon>
+                    <BackgroundCardIcon>
                         <HomeIcon />
                     </BackgroundCardIcon>
-                <BackgroundCard>
-                    <SearchIcon />
-                    <Search placeholder="Pesquisar no Orkut" />
-                </BackgroundCard>
+                    <BackgroundCard>
+                        <SearchIcon />
+                        <Search placeholder="Pesquisar no Orkut" />
+                    </BackgroundCard>
                 </MenuActions>
 
                 <Menu onClick={() => setMenu(!menu)}>
-                    <ImageProfile src={avatar} alt="image profile"/>
+                    <ImageProfile src={avatar} alt="image profile" />
+                    <Username>{ username }</Username>
                     <ArrowMenu menu={menu} />
                 </Menu>
-                {menu ? (
-                    <MenuActions setMenu={setMenu} token={token} />
-                ) : (
-                    ''
-                )}
                 {/* {
                     user ?
                         <Logout onClick={ logoutUser } />
                     : ''
                 } */}
             </HeaderContent>
+            {menu ? (
+                <HeaderMenu setMenu={setMenu} token={token} />
+            ) : (
+                ''
+            )}
         </HeaderContainer>
     );
 }

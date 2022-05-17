@@ -1,24 +1,27 @@
-import { MouseEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ButtonMenu, ButtonsContainer, MenuContainer } from "../styles/HeaderStyle";
+import { MouseEvent } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+import { ButtonMenu, ButtonsContainer, MenuContainer } from '../styles/HeaderStyle';
 
 interface PropsMenu {
-    setMenu: boolean;
-    token: string;
+    setMenu: number;
 }
 
-export default function MenuActions({ setMenu, token }: PropsMenu) {
-    // const { token } = useContext(AuthContext);
+export default function HeaderMenu({ setMenu }: PropsMenu) {
     const navigate = useNavigate();
+
+    const { logout } = useAuth();
 
     const handleMenuEvent = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();
-    }
+        setMenu(0);
+    };
 
     const handleLogoutEvent = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();
+        logout();
         navigate('/');
-    }
+    };
 
     // function logoutUser() {
     //     // logout({ token })
@@ -29,17 +32,11 @@ export default function MenuActions({ setMenu, token }: PropsMenu) {
     // }
 
     return (
-        <MenuContainer onClick={ handleMenuEvent } >
+        <MenuContainer onClick={ handleMenuEvent }>
             <ButtonsContainer>
                 <ButtonMenu>
-                    <Link to='/explore' >
-                        Explore
-                    </Link>
-                </ButtonMenu>
-
-                <ButtonMenu>
-                    <Link to={`/users/${1}`} >
-                        Profile
+                    <Link to={ `/users/${1}` }>
+                        Perfil
                     </Link>
                 </ButtonMenu>
 
