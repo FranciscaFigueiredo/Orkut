@@ -1,24 +1,27 @@
-import { MouseEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ButtonMenu, ButtonsContainer, MenuContainer } from "../styles/HeaderStyle";
+import React, { SetStateAction } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+import { ButtonMenu, ButtonsContainer, MenuContainer } from '../styles/HeaderStyle';
 
 interface PropsMenu {
-    setMenu: boolean;
-    token: string;
+    setMenu: SetStateAction<boolean>;
 }
 
-export default function MenuActions({ setMenu, token }: PropsMenu) {
-    // const { token } = useContext(AuthContext);
+export default function HeaderMenu({ setMenu }: PropsMenu) {
     const navigate = useNavigate();
 
-    const handleMenuEvent = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.preventDefault();
-    }
+    const { logout } = useAuth();
 
-    const handleLogoutEvent = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const handleMenuEvent = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
+        setMenu(false);
+    };
+
+    const handleLogoutEvent = (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+        logout();
         navigate('/');
-    }
+    };
 
     // function logoutUser() {
     //     // logout({ token })
@@ -29,17 +32,11 @@ export default function MenuActions({ setMenu, token }: PropsMenu) {
     // }
 
     return (
-        <MenuContainer onClick={ handleMenuEvent } >
+        <MenuContainer onClick={ handleMenuEvent }>
             <ButtonsContainer>
                 <ButtonMenu>
-                    <Link to='/explore' >
-                        Explore
-                    </Link>
-                </ButtonMenu>
-
-                <ButtonMenu>
-                    <Link to={`/users/${1}`} >
-                        Profile
+                    <Link to={ `/home` }>
+                        Perfil
                     </Link>
                 </ButtonMenu>
 

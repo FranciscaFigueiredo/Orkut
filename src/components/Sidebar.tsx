@@ -1,16 +1,33 @@
 import { HomeIcon } from '../styles/HeaderStyle';
-import { About, Button, ButtonsCard, CircleStyle, GameIcon, Heart, ImageIcon, ImageProfile, Line, SidebarProfile, UserDescription, UserIcon, Username } from '../styles/MenuActionsStyle';
+import {
+    About,
+    Button,
+    ButtonsCard,
+    CircleStyle,
+    GameIcon,
+    Heart,
+    ImageIcon,
+    ImageProfile,
+    Line,
+    SidebarProfile,
+    UserDescription,
+    UserIcon,
+    Username,
+} from '../styles/MenuActionsStyle';
 
-export function Sidebar() {
-    const avatar = 'https://http.cat/422.jpg';
+interface UserSidebar {
+    username: string;
+    avatar: string;
+}
 
+export function Sidebar({ username, avatar }: UserSidebar) {
     return (
         <SidebarProfile>
             <CircleStyle>
-                <ImageProfile src={avatar} alt="image profile"/>
+                <ImageProfile src={avatar} alt="image profile" />
             </CircleStyle>
             <UserDescription>
-                <Username>Francisca</Username>
+                <Username>{ username }</Username>
                 <About>feminino, namorando</About>
                 <About>Bahia - Brasil</About>
             </UserDescription>

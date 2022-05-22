@@ -22,7 +22,6 @@ const HeaderContent = styled.header`
     margin: 0 auto;
 `;
 
-
 const LogoContainer = styled.div`
     min-width: 15vw;
 
@@ -53,7 +52,7 @@ const BackgroundCardIcon = styled.div`
     border-radius: 50%;
     background-color: #202020;
 
-    /* padding: 10px 15px; */
+    cursor: pointer;
 `;
 
 const BackgroundCard = styled.div`
@@ -130,6 +129,8 @@ const Menu = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+   cursor: pointer;
 `;
 
 const ImageProfile = styled.img`
@@ -138,18 +139,18 @@ const ImageProfile = styled.img`
 
     border-radius: 50%;
 
-    margin: 0 auto;
+    margin-right: 20px;
 `;
 
 const ArrowMenu = styled(IoIosArrowDown)<ArrowProps>`
     color: #ffffff;
 
-    transform: ${(props) => props.menu ? "rotate(180deg)" : ""};
+    transform: ${(props) => props.menu ? 'rotate(180deg)' : ''};
 
     cursor: pointer;
 
     margin: 0 15px;
-`
+`;
 
 const MenuContainer = styled.div`
 	width: 100vw;
@@ -162,18 +163,18 @@ const MenuContainer = styled.div`
 
     position: absolute;
     left: 0;
-    top: 72px;
+    top: 130px;
     z-index: 10;
+
+    cursor: pointer;
 
     a {
         all: unset;
     }
 `;
 
-
 const ButtonsContainer = styled.div`
-	/* width: 100vw; */
-    /* height: 100vh; */
+    height: 100px;
 
     display: flex;
     flex-direction: column;
@@ -181,8 +182,10 @@ const ButtonsContainer = styled.div`
 	justify-content: flex-start;
 
     position: absolute;
-    right: 0;
-    top: 0; 
+    right: 7.5vw;
+    top: 0;
+
+    cursor: pointer;
 
     a {
         all: unset;
@@ -190,24 +193,41 @@ const ButtonsContainer = styled.div`
 `;
 
 const ButtonMenu = styled.button`
-    width: 150px;
+    width: 20vw;
     height: 45px;
 
     color: #ffffff;
     font-size: 17px;
     font-weight: bold;
 
-    background-color: #888888;
+    background-color: rgba(237, 37, 144, 0.4);
 
     cursor: pointer;
 
     &:last-child {
         border-end-start-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+
+    &:first-child {
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
     }
 
     &:hover {
         background-color: #ed2590;
     }
+`;
+
+const Username = styled.span`
+    color: rgb(255, 255, 255);
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: left;
+    line-height: 1.5rem;
+    text-align: center;
+
+    cursor: pointer;
 `;
 
 export {
@@ -227,4 +247,5 @@ export {
     MenuContainer,
     ButtonsContainer,
     ButtonMenu,
+    Username,
 };

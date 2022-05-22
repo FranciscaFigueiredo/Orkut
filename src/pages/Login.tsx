@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Header } from '../components/Header';
+
 import { useAuth } from '../hooks/useAuth';
 import { postLogin } from '../services/orkut';
 import logo from '../styles/orkut.png';
@@ -35,9 +35,11 @@ export function Login() {
     function redirectLogin(res: AxiosResponse<any, any>) {
         // setToken(res.data.token);
 
-        const user = JSON.stringify(res.data);
-        sessionStorage.setItem('user', user);
+        // const user = JSON.stringify(res.data);
+        // sessionStorage.setItem('user', user);
         // setUser(user);
+
+        login(res.data);
 
         setTimeout(() => {
             navigate('/home');
@@ -73,7 +75,7 @@ export function Login() {
 
                 if (err.response.status === 500) {
                     alert(
-                        'Servidor fora de área, tente novamente mais tarde'
+                        'Servidor fora de área, tente novamente mais tarde',
                     );
 
                     setTimeout(() => {

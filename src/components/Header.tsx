@@ -1,54 +1,98 @@
-import { SetStateAction, useContext } from 'react';
-import { useState } from 'react';
-import { AuthContext } from '../contexts/AuthContext';
+import { SetStateAction, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+import { getUsersByName } from '../services/orkut';
 import { HeaderContainer } from '../styles/ContainerStyle';
-import { ArrowMenu, BackgroundCard, BackgroundCardIcon, HeaderContent, HomeIcon, ImageProfile, LogoContainer, LogoImage, Menu, MenuActions, SearchIcon } from '../styles/HeaderStyle';
+import {
+    ArrowMenu,
+    BackgroundCard,
+    BackgroundCardIcon,
+    HeaderContent,
+    HomeIcon,
+    ImageProfile,
+    LogoContainer,
+    LogoImage,
+    Menu,
+    MenuActions,
+    SearchIcon,
+    Username,
+} from '../styles/HeaderStyle';
+
 import { Search } from '../styles/NavigationMenuStyle';
 import logo from '../styles/orkut.png';
+import HeaderMenu from './HeaderMenu';
 
-export function Header() {
-    const avatar = 'https://http.cat/422.jpg';
+export interface PropsUserInfo {
+    id?: number;
+    username: string | null;
+    avatar: string | null;
+}
 
-    interface MenuInterface {
-        success: boolean;
-        message: string;
-    }
-    const [menu, setMenu] = useState<SetStateAction<false | MenuInterface>>(false);
-    
-    const { token } = useContext(AuthContext);
+export function Header({ username, avatar }: PropsUserInfo) {
+    const [menu, setMenu] = useState<SetStateAction<boolean>>(false);
+    const [search, setSearch] = useState('');
+    const [usersList, setUsersList] = useState([]);
+
+    const { token } = useAuth();
+
+    useEffect(() => {
+        if (search.length > 2) {
+            getUsersByName(token, search)
+                .then((res) => setUsersList(res.data))
+                .catch(() => console.error());
+        }
+
+        if (search.length <= 2) {
+            setUsersList([]);
+        }
+    }, [search]);
+
+    console.log(usersList);
 
     return (
         <HeaderContainer>
             <HeaderContent>
-                <LogoContainer>
-                    <LogoImage src={logo} alt="logo orkut" />
-                </LogoContainer>
-                
+                <Link to="/home">
+                    <LogoContainer>
+                        <LogoImage src={ logo } alt="logo orkut" />
+                    </LogoContainer>
+                </Link>
+
                 <MenuActions>
-                <BackgroundCardIcon>
-                        <HomeIcon />
-                    </BackgroundCardIcon>
-                <BackgroundCard>
-                    <SearchIcon />
-                    <Search placeholder="Pesquisar no Orkut" />
-                </BackgroundCard>
+                    <Link to="/home">
+                        <BackgroundCardIcon>
+                            <HomeIcon />
+                        </BackgroundCardIcon>
+                    </Link>
+
+                    <BackgroundCard>
+                        <SearchIcon />
+                        <Search
+                            type="text"
+                            placeholder="Pesquisar no Orkut"
+                            required
+                            value={ search }
+                            onChange={ (event) => setSearch(event.target.value) }
+                        />
+                    </BackgroundCard>
                 </MenuActions>
 
-                <Menu onClick={() => setMenu(!menu)}>
-                    <ImageProfile src={avatar} alt="image profile"/>
-                    <ArrowMenu menu={menu} />
+                <Menu onClick={ () => setMenu(!menu) }>
+                    <ImageProfile src={ avatar } alt="image profile" />
+                    <Username>{ username }</Username>
+                    <ArrowMenu menu={ menu } />
                 </Menu>
-                {menu ? (
-                    <MenuActions setMenu={setMenu} token={token} />
-                ) : (
-                    ''
-                )}
                 {/* {
                     user ?
                         <Logout onClick={ logoutUser } />
                     : ''
                 } */}
             </HeaderContent>
+            {menu ? (
+                <HeaderMenu setMenu={ setMenu } token={ token } />
+            ) : (
+                ''
+            )}
         </HeaderContainer>
     );
 }

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { RiUser3Fill } from 'react-icons/ri';
 import { BsHeartFill, BsImageAlt } from 'react-icons/bs';
-import { RiGamepadFill } from 'react-icons/ri'
+import { RiGamepadFill } from 'react-icons/ri';
 
 const SidebarProfile = styled.div`
     width: 15vw;
@@ -31,12 +31,11 @@ const CircleStyle = styled.div`
     align-items: center;
     justify-content: center;
 
-    /* border-style: outset; */
     border-radius: 50%;
     background: linear-gradient(152deg, rgba(252,70,107,0.8631827731092436) 0%, rgba(63,94,251,0.9528186274509804) 100%);
 
-    margin: 0 auto;
-    padding: 3px;
+    margin: 10px auto 0;
+    padding: 4px;
 `;
 
 const ImageProfile = styled.img`
@@ -44,7 +43,7 @@ const ImageProfile = styled.img`
     height: 7vw;
 
     border-radius: 50%;
-    border: 3px inset #000000;
+    border: 3px inset #161616;
 
     margin: 0 auto;
 `;
@@ -137,6 +136,8 @@ const Button = styled.button`
     border-radius: 30px;
 
     padding: 10px;
+
+    cursor: pointer;
 
     svg {
         margin-right: 10px;
