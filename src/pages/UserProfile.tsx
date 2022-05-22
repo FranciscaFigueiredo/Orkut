@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Biography } from '../components/Biography';
 import { Friends } from '../components/Friends/Friends';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
 import { useAuth } from '../hooks/useAuth';
-import { getUserProfile } from '../services/orkut';
+import { getUserProfileById } from '../services/orkut';
 
 import { ContentContainer, PageContainer } from '../styles/ContainerStyle';
 import { SocialContainer } from '../styles/SocialStyle';
@@ -19,11 +19,12 @@ interface UserData {
     token: string;
 }
 
-export function Home() {
+export function UserProfile() {
     const navigate = useNavigate();
 
-    // const user = JSON.parse(`${sessionStorage.getItem('user')}`);
-    const { token } = useAuth();
+    const { id } = useParams()
+
+    const { username, avatar, token } = useAuth();
 
     const [userData, setUserData] = useState<UserData>({
         id: 0,
@@ -35,25 +36,19 @@ export function Home() {
     });
 
     useEffect(() => {
-        if (!token) {
-            navigate('/');
-        }
-
-        getUserProfile(token)
+        getUserProfileById(token, Number(id))
             .then((res) => setUserData(res.data))
             .catch(() => console.error());
     }, []);
 
-    console.log(userData);
-
     return (
         <PageContainer>
-            <Header username={ userData?.username } avatar={ userData?.avatar } />
+            <Header username={ username } avatar={ avatar } />
             <ContentContainer>
                 <Sidebar username={ userData?.username } avatar={ userData?.avatar } />
                 <Biography />
                 <SocialContainer>
-                    <Friends token={ token } id={ userData?.id } />
+                    <Friends token={ token } id={ Number(id) } />
                 </SocialContainer>
             </ContentContainer>
         </PageContainer>

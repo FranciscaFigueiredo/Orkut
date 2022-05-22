@@ -1,10 +1,10 @@
-import { MouseEvent } from 'react';
+import React, { SetStateAction } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { ButtonMenu, ButtonsContainer, MenuContainer } from '../styles/HeaderStyle';
 
 interface PropsMenu {
-    setMenu: number;
+    setMenu: SetStateAction<boolean>;
 }
 
 export default function HeaderMenu({ setMenu }: PropsMenu) {
@@ -12,12 +12,12 @@ export default function HeaderMenu({ setMenu }: PropsMenu) {
 
     const { logout } = useAuth();
 
-    const handleMenuEvent = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const handleMenuEvent = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
-        setMenu(0);
+        setMenu(false);
     };
 
-    const handleLogoutEvent = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const handleLogoutEvent = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
         logout();
         navigate('/');
@@ -35,7 +35,7 @@ export default function HeaderMenu({ setMenu }: PropsMenu) {
         <MenuContainer onClick={ handleMenuEvent }>
             <ButtonsContainer>
                 <ButtonMenu>
-                    <Link to={ `/users/${1}` }>
+                    <Link to={ `/home` }>
                         Perfil
                     </Link>
                 </ButtonMenu>

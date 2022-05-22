@@ -7,7 +7,7 @@ interface IAuthContext {
     subtitle: string | null;
     email: string | null;
     token: string | null;
-    login: (user: UserData) => void;
+    login: (user: any) => void;
     logout: () => void;
 }
 
@@ -23,24 +23,29 @@ const LOCAL_STORAGE_KEY = 'orkut-user';
 const persistedUserData = localStorage.getItem(LOCAL_STORAGE_KEY);
 
 export function AuthProvider({ children }: Props) {
-    const [userData, setUserData] = useState<UserData>(persistedUserData);
+    const noUser: UserData = {
+        id: null,
+        username: '',
+        avatar: '',
+        subtitle: '',
+        email: '',
+        token: '',
+    };
+
+    const [userData, setUserData] = useState(() => persistedUserData ? JSON.parse(persistedUserData) : null);
 
     function login(user: UserData) {
-        console.log(user);
-
         setUserData(user);
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(user));
     }
 
     function logout() {
-        console.log(' logout');
-
-        setUserData(null);
+        setUserData(noUser);
         localStorage.clear();
     }
 
     return (
-        <AuthContext.Provider value={{
+        <AuthContext.Provider value={ {
             id: userData?.id,
             username: userData?.username,
             avatar: userData?.avatar,
@@ -49,7 +54,7 @@ export function AuthProvider({ children }: Props) {
             token: userData?.token,
             login,
             logout,
-        }}
+        } }
         >
             {children}
         </AuthContext.Provider>

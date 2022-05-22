@@ -91,6 +91,8 @@ const SmileIcon = styled(BsEmojiLaughingFill)`
     text-align: center;
 
     cursor: pointer;
+
+    margin: 0 2px;
 `;
 
 const HeartBlueIcon = styled(BsHeartFill)`
