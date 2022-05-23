@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { postSignUp } from '../services/orkut';
+import ModalError from '../shared/ModalError';
+import ModalSuccess from '../shared/ModalSuccess';
 import { AuthCard } from '../styles/AuthStyle';
 import { PageContainer } from '../styles/ContainerStyle';
 
@@ -27,7 +29,11 @@ export default function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    function signup(event: { preventDefault: () => void; }) {
+    const [modalError, setModalError] = useState(false);
+    const [modalSuccess, setModalSuccess] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+
+    const handleSignUpEvent = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         setDisable(true);
 
@@ -37,8 +43,9 @@ export default function SignUp() {
             email,
             password,
         })
-            .then((res) => {
-                alert('Cadastro realizado com sucesso!');
+            .then(() => {
+                setModalMessage('Cadastro realizado com sucesso!');
+                setModalSuccess(true);
                 setTimeout(() => {
                     navigate('/');
                 }, 2000);
@@ -50,73 +57,87 @@ export default function SignUp() {
                 setDisable(false);
 
                 if (err.response.status === 400) {
-                    alert('Digite dados válidos!');
+                    setModalMessage('Digite dados válidos!');
+                    setModalError(true);
                 }
 
                 if (err.response.status === 409) {
                     setEmail('');
                     setUsername('');
-                    alert('Usuário já existente');
+                    setModalMessage('Usuário já existente');
+                    setModalError(true);
                 }
 
                 if (err.response.status === 500) {
-                    alert('Servidor fora de área, tente novamente mais tarde');
+                    setModalMessage('Servidor fora de área, tente novamente mais tarde');
+                    setModalError(true);
                 }
             });
-    }
+    };
 
     return (
         <PageContainer>
             <LogoContainer>
-                <LogoImage src={logo} alt="logo orkut" />
+                <LogoImage src={ logo } alt="logo orkut" />
             </LogoContainer>
             <Line />
             <AuthCard>
                 <Title>Sign Up</Title>
-                <Form onSubmit={signup}>
+                <Form onSubmit={ handleSignUpEvent }>
                     <Input
                         type="text"
                         placeholder="username"
-                        disabled={disable}
+                        disabled={ disable }
                         required
                         id="name"
-                        value={username}
-                        onChange={(event) => setUsername(event.target.value)}
+                        value={ username }
+                        onChange={ (event) => setUsername(event.target.value) }
                     />
                     <Input
                         type="url"
                         placeholder="avatar"
-                        disabled={disable}
+                        disabled={ disable }
                         required
                         id="name"
-                        value={avatar}
-                        onChange={(event) => setAvatar(event.target.value)}
+                        value={ avatar }
+                        onChange={ (event) => setAvatar(event.target.value) }
                     />
                     <Input
                         type="email"
                         placeholder="email"
-                        disabled={disable}
+                        disabled={ disable }
                         required
                         id="email"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
+                        value={ email }
+                        onChange={ (event) => setEmail(event.target.value) }
                     />
                     <Input
                         type="password"
                         placeholder="senha"
-                        disabled={disable}
+                        disabled={ disable }
                         required
                         id="password"
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
+                        value={ password }
+                        onChange={ (event) => setPassword(event.target.value) }
                     />
 
-                    <ButtonSubmit disabled={disable}>Cadastrar</ButtonSubmit>
+                    <ButtonSubmit disabled={ disable }>Cadastrar</ButtonSubmit>
                     <Link to="/">
                         <Redirect>Já é membro? Voltar para a tela de login</Redirect>
                     </Link>
                 </Form>
             </AuthCard>
+            {
+                modalError
+                    ? <ModalError message={ modalMessage } setModal={ setModalError } />
+                    : ''
+            }
+
+            {
+                modalSuccess
+                    ? <ModalSuccess message="" />
+                    : ''
+            }
         </PageContainer>
     );
 }

@@ -145,7 +145,7 @@ const ImageProfile = styled.img`
 const ArrowMenu = styled(IoIosArrowDown)<ArrowProps>`
     color: #ffffff;
 
-    transform: ${(props) => props.menu ? 'rotate(180deg)' : ''};
+    transform: ${(props) => (props.menu ? 'rotate(180deg)' : '')};
 
     cursor: pointer;
 
@@ -153,13 +153,13 @@ const ArrowMenu = styled(IoIosArrowDown)<ArrowProps>`
 `;
 
 const MenuContainer = styled.div`
-	width: 100vw;
+    width: 100vw;
     height: 100vh;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-	justify-content: flex-start;
+    justify-content: flex-start;
 
     position: absolute;
     left: 0;
@@ -179,7 +179,7 @@ const ButtonsContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-	justify-content: flex-start;
+    justify-content: flex-start;
 
     position: absolute;
     right: 7.5vw;

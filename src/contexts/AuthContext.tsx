@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable no-unused-vars */
 import { createContext, ReactNode, useState } from 'react';
 
 interface IAuthContext {
@@ -32,7 +34,7 @@ export function AuthProvider({ children }: Props) {
         token: '',
     };
 
-    const [userData, setUserData] = useState(() => persistedUserData ? JSON.parse(persistedUserData) : null);
+    const [userData, setUserData] = useState(() => (persistedUserData ? JSON.parse(persistedUserData) : null));
 
     function login(user: UserData) {
         setUserData(user);

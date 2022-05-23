@@ -17,6 +17,8 @@ import {
 import { LogoContainer, LogoImage } from '../styles/HeaderStyle';
 import { Line } from '../styles/NavigationMenuStyle';
 import { AuthCard } from '../styles/AuthStyle';
+import ModalError from '../shared/ModalError';
+import ModalSuccess from '../shared/ModalSuccess';
 
 export function Login() {
     const navigate = useNavigate();
@@ -26,19 +28,17 @@ export function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const { login } = useAuth();
+    const { token, login } = useAuth();
 
-    // if (user) {
-    //     navigate('/home');
-    // }
+    const [modalError, setModalError] = useState(false);
+    const [modalSuccess, setModalSuccess] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+
+    if (token) {
+        navigate('/home');
+    }
 
     function redirectLogin(res: AxiosResponse<any, any>) {
-        // setToken(res.data.token);
-
-        // const user = JSON.stringify(res.data);
-        // sessionStorage.setItem('user', user);
-        // setUser(user);
-
         login(res.data);
 
         setTimeout(() => {
@@ -46,7 +46,7 @@ export function Login() {
         }, 1000);
     }
 
-    function sendLogin(event: { preventDefault: () => void; }) {
+    const handleLoginEvent = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         setDisable(true);
 
@@ -55,7 +55,8 @@ export function Login() {
             password,
         })
             .then((res) => {
-                alert('Login com sucesso!');
+                setModalMessage('Login com sucesso!');
+                setModalSuccess(true);
                 redirectLogin(res);
             })
             .catch((err) => {
@@ -65,57 +66,69 @@ export function Login() {
                 setDisable(false);
 
                 if (err.response.status === 400) {
-                    alert('Digite dados válidos');
+                    setModalMessage('Dica: A senha deve ter 6 dígitos ou mais');
+                    setModalError(true);
                 }
 
                 if (err.response.status === 401) {
                     setEmail('');
-                    alert(err.response.data);
+                    setModalMessage('Email ou senha inválidos');
+                    setModalError(true);
                 }
 
                 if (err.response.status === 500) {
-                    alert(
-                        'Servidor fora de área, tente novamente mais tarde',
-                    );
+                    setModalMessage('Servidor fora de área, tente novamente mais tarde');
+                    setModalError(true);
 
                     setTimeout(() => {
                         navigate('/');
                     }, 2000);
                 }
             });
-    }
+    };
 
     return (
         <PageContainer>
             <LogoContainer>
-                <LogoImage src={logo} alt="logo orkut" />
+                <LogoImage src={ logo } alt="logo orkut" />
             </LogoContainer>
             <Line />
             <AuthCard>
                 <Title>Login</Title>
-                <Form onSubmit={sendLogin}>
+                <Form onSubmit={ handleLoginEvent }>
                     <Input
                         type="email"
                         placeholder="email"
-                        disabled={disable}
+                        disabled={ disable }
                         required
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
+                        value={ email }
+                        onChange={ (event) => setEmail(event.target.value) }
                     />
                     <Input
                         type="password"
                         placeholder="password"
-                        disabled={disable}
+                        disabled={ disable }
                         required
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
+                        value={ password }
+                        onChange={ (event) => setPassword(event.target.value) }
                     />
-                    <ButtonSubmit disabled={disable}>Entrar</ButtonSubmit>
+                    <ButtonSubmit disabled={ disable }>Entrar</ButtonSubmit>
                     <Link to="/sign-up">
                         <Redirect>Ainda não é membro? Entrar já!</Redirect>
                     </Link>
                 </Form>
             </AuthCard>
+            {
+                modalError
+                    ? <ModalError message={ modalMessage } setModal={ setModalError } />
+                    : ''
+            }
+
+            {
+                modalSuccess
+                    ? <ModalSuccess message="" />
+                    : ''
+            }
         </PageContainer>
     );
 }

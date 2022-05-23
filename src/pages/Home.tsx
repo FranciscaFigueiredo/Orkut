@@ -44,13 +44,15 @@ export function Home() {
             .catch(() => console.error());
     }, []);
 
-    console.log(userData);
-
     return (
         <PageContainer>
             <Header username={ userData?.username } avatar={ userData?.avatar } />
             <ContentContainer>
-                <Sidebar username={ userData?.username } avatar={ userData?.avatar } />
+                <Sidebar
+                    friendship={ false }
+                    username={ userData?.username }
+                    avatar={ userData?.avatar }
+                />
                 <Biography />
                 <SocialContainer>
                     <Friends token={ token } id={ userData?.id } />

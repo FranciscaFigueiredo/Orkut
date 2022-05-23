@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
-import { RiUser3Fill } from 'react-icons/ri';
+import { RiUser3Fill, RiGamepadFill } from 'react-icons/ri';
 import { BsHeartFill, BsImageAlt } from 'react-icons/bs';
-import { RiGamepadFill } from 'react-icons/ri';
 
 const SidebarProfile = styled.div`
     width: 15vw;
@@ -195,6 +194,35 @@ const GameIcon = styled(RiGamepadFill)`
     cursor: pointer;
 `;
 
+const ButtonAddFriend = styled.button`
+    all: unset;
+    width: 100%;
+    max-height: 45px;
+    
+    color: #ffffff;
+    font-size: 14px;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    background-color: rgba(237, 37, 144, 1);
+    border-radius: 30px;
+
+    padding: 10px;
+
+    cursor: pointer;
+
+    svg {
+        margin-right: 10px;
+    }
+
+    &:hover {
+        background-color: #161616;
+    }
+`;
+
 export {
     SidebarProfile,
     CircleStyle,
@@ -210,4 +238,5 @@ export {
     Heart,
     ImageIcon,
     GameIcon,
+    ButtonAddFriend,
 };

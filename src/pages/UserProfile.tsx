@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Biography } from '../components/Biography';
 import { Friends } from '../components/Friends/Friends';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
 import { useAuth } from '../hooks/useAuth';
-import { getUserProfileById } from '../services/orkut';
+import { getFriendship, getUserProfileById } from '../services/orkut';
 
 import { ContentContainer, PageContainer } from '../styles/ContainerStyle';
 import { SocialContainer } from '../styles/SocialStyle';
@@ -20,11 +20,14 @@ interface UserData {
 }
 
 export function UserProfile() {
-    const navigate = useNavigate();
+    const { id } = useParams();
 
-    const { id } = useParams()
-
-    const { username, avatar, token } = useAuth();
+    const {
+        id: userLogId,
+        username,
+        avatar,
+        token,
+    } = useAuth();
 
     const [userData, setUserData] = useState<UserData>({
         id: 0,
@@ -35,9 +38,15 @@ export function UserProfile() {
         token: '',
     });
 
+    const [friendship, setFriendship] = useState(false);
+
     useEffect(() => {
         getUserProfileById(token, Number(id))
             .then((res) => setUserData(res.data))
+            .catch(() => console.error());
+
+        getFriendship(token, Number(userLogId), Number(id))
+            .then((res) => (res.data ? setFriendship(true) : setFriendship(false)))
             .catch(() => console.error());
     }, []);
 
@@ -45,7 +54,11 @@ export function UserProfile() {
         <PageContainer>
             <Header username={ username } avatar={ avatar } />
             <ContentContainer>
-                <Sidebar username={ userData?.username } avatar={ userData?.avatar } />
+                <Sidebar
+                    friendship={ friendship }
+                    username={ userData?.username }
+                    avatar={ userData?.avatar }
+                />
                 <Biography />
                 <SocialContainer>
                     <Friends token={ token } id={ Number(id) } />
