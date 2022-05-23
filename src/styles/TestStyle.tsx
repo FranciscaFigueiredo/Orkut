@@ -24,7 +24,6 @@ const LinkTest = styled.a`
     cursor: pointer;
 `;
 
-
 const Views = styled.span`
     font-size: 12px;
 

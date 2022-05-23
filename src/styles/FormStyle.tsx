@@ -92,5 +92,5 @@ export {
     Title,
     Input,
     ButtonSubmit,
-    Redirect
+    Redirect,
 };

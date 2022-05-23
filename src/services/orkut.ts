@@ -52,6 +52,24 @@ function getUsersByName(token: string | null, username: string | null) {
     return promise;
 }
 
+function getUserRequests(token: string | null, userId: number | null) {
+    const config = createConfig(token);
+    const promise = axios.get(`${api}/users/${userId}/friendship`, config);
+    return promise;
+}
+
+function getFriendship(token: string | null, userId: number | null, friendId: number | null) {
+    const config = createConfig(token);
+    const promise = axios.get(`${api}/users/${userId}/friends/${friendId}`, config);
+    return promise;
+}
+
+function postFriendshipRequest(token: string | null, friend: number | null) {
+    const config = createConfig(token);
+    const promise = axios.post(`${api}/users/${friend}/friendship`, {}, config);
+    return promise;
+}
+
 export {
     postLogin,
     postSignUp,
@@ -59,4 +77,7 @@ export {
     getUserFriends,
     getUserProfileById,
     getUsersByName,
+    getUserRequests,
+    getFriendship,
+    postFriendshipRequest,
 };

@@ -1,7 +1,11 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { getUserFriends } from '../../services/orkut';
-import { AvatarImagesCard, SocialCard, SocialHeader, ThreeDotsIcon } from '../../styles/SocialStyle';
+import {
+    AvatarImagesCard,
+    SocialCard,
+    SocialHeader,
+    ThreeDotsIcon,
+} from '../../styles/SocialStyle';
 import { Friend } from './Friend';
 
 type FriendObject = {
@@ -23,9 +27,6 @@ export function Friends({ token, id }: { token: string | null, id: number }) {
             .catch(() => console.error());
     }, []);
 
-    console.log(friends, id);
-    
-
     return (
         <SocialCard>
             <SocialHeader>
@@ -33,17 +34,25 @@ export function Friends({ token, id }: { token: string | null, id: number }) {
                 <span>Ver mais</span>
             </SocialHeader>
             <AvatarImagesCard>
-            {
-                friends.length ?
-                    friends.map((friend: FriendData, index: number) => <Friend key={ index } id={ friend.friend.id } username={ friend.friend.username } avatar={ friend.friend.avatar } /> )
-                : ''
-            }
-            
+                {
+                    friends.length
+                        ? friends.map((friend: FriendData, index: number) => (
+                            <Friend
+                                // eslint-disable-next-line react/no-array-index-key
+                                key={ index }
+                                id={ friend.friend.id }
+                                username={ friend.friend.username }
+                                avatar={ friend.friend.avatar }
+                            />
+                        ))
+                        : ''
+                }
+
             </AvatarImagesCard>
             {
-                friends.length > 9 ?
-                    <ThreeDotsIcon />
-                : <span>Encontre novos amigos!</span>
+                friends.length > 9
+                    ? <ThreeDotsIcon />
+                    : <span>Encontre novos amigos!</span>
             }
         </SocialCard>
     );

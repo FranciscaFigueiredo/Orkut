@@ -23,14 +23,6 @@ export default function HeaderMenu({ setMenu }: PropsMenu) {
         navigate('/');
     };
 
-    // function logoutUser() {
-    //     // logout({ token })
-    //     //     .catch((err) => console.error());
-    //     // setUser(null);
-    //     // sessionStorage.clear();
-    //     // navigate('/');
-    // }
-
     return (
         <MenuContainer onClick={ handleMenuEvent }>
             <ButtonsContainer>

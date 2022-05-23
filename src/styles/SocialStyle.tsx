@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import { BsThreeDots } from 'react-icons/bs';
 
 const SocialContainer = styled.div`
@@ -141,5 +141,5 @@ export {
     AvatarImagesCard,
     InfoSocialStyle,
     AvatarImage,
-    ThreeDotsIcon
+    ThreeDotsIcon,
 };

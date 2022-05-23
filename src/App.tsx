@@ -14,10 +14,10 @@ export default function App() {
             <GlobalStyle />
             <AuthProvider>
                 <Routes>
-                    <Route path="/" element={<Login />} />
-                    <Route path='/sign-up' element={<SignUp />} />
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/users/:id" element={<UserProfile />} />
+                    <Route path="/" element={ <Login /> } />
+                    <Route path="/sign-up" element={ <SignUp /> } />
+                    <Route path="/home" element={ <Home /> } />
+                    <Route path="/users/:id" element={ <UserProfile /> } />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
